@@ -1,0 +1,6 @@
+{
+  "Name": "Invoice2DB",
+  "ProjectType": "Process",
+  "Description": "Invoice2DB",
+  "MainFile": "Main.xaml"
+}
