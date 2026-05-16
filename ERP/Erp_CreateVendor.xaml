@@ -1,62 +1,10 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Erp_CreateVendor" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Erp_CreateVendor_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <TextExpression.NamespacesForImplementation>
-    <sco:Collection x:TypeArguments="x:String">
-      <x:String>System.Activities</x:String>
-      <x:String>System.Activities.Statements</x:String>
-      <x:String>System.Activities.Expressions</x:String>
-      <x:String>System.Activities.Validation</x:String>
-      <x:String>System.Activities.XamlIntegration</x:String>
-      <x:String>Microsoft.VisualBasic</x:String>
-      <x:String>Microsoft.VisualBasic.Activities</x:String>
-      <x:String>System</x:String>
-      <x:String>System.Collections</x:String>
-      <x:String>System.Collections.Generic</x:String>
-      <x:String>System.Collections.ObjectModel</x:String>
-      <x:String>System.Data</x:String>
-      <x:String>System.Diagnostics</x:String>
-      <x:String>System.Drawing</x:String>
-      <x:String>System.IO</x:String>
-      <x:String>System.Linq</x:String>
-      <x:String>System.Net.Mail</x:String>
-      <x:String>System.Xml</x:String>
-      <x:String>System.Xml.Linq</x:String>
-      <x:String>UiPath.Core</x:String>
-      <x:String>UiPath.Core.Activities</x:String>
-      <x:String>System.Windows.Markup</x:String>
-      <x:String>GlobalVariablesNamespace</x:String>
-      <x:String>GlobalConstantsNamespace</x:String>
-    </sco:Collection>
-  </TextExpression.NamespacesForImplementation>
-  <TextExpression.ReferencesForImplementation>
-    <sco:Collection x:TypeArguments="AssemblyReference">
-      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
-      <AssemblyReference>mscorlib</AssemblyReference>
-      <AssemblyReference>System</AssemblyReference>
-      <AssemblyReference>System.Activities</AssemblyReference>
-      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
-      <AssemblyReference>System.Core</AssemblyReference>
-      <AssemblyReference>System.Data</AssemblyReference>
-      <AssemblyReference>System.Data.Common</AssemblyReference>
-      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
-      <AssemblyReference>System.Drawing</AssemblyReference>
-      <AssemblyReference>System.Drawing.Common</AssemblyReference>
-      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
-      <AssemblyReference>System.Linq</AssemblyReference>
-      <AssemblyReference>System.Net.Mail</AssemblyReference>
-      <AssemblyReference>System.ObjectModel</AssemblyReference>
-      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
-      <AssemblyReference>System.Xaml</AssemblyReference>
-      <AssemblyReference>System.Xml</AssemblyReference>
-      <AssemblyReference>System.Xml.Linq</AssemblyReference>
-      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
-      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
-    </sco:Collection>
-  </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Erp_CreateVendor" sap:VirtualizedContainerService.HintSize="808,442.65666666666664" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <sap:WorkflowViewStateService.ViewState>
-      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-      </scg:Dictionary>
-    </sap:WorkflowViewStateService.ViewState>
+﻿<Activity mc:Ignorable="sap sap2010" x:Class="Erp_CreateVendor" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members><x:Property Name="in_Connection" Type="InArgument(ui:DatabaseConnection)" /><x:Property Name="in_Supplier" Type="InArgument(x:String)" /><x:Property Name="in_Address" Type="InArgument(x:String)" /><x:Property Name="in_IBAN" Type="InArgument(x:String)" /><x:Property Name="out_VendorId" Type="OutArgument(x:Int32)" /></x:Members>
+  <VisualBasic.Settings><x:Null /></VisualBasic.Settings>
+  <TextExpression.NamespacesForImplementation><sco:Collection x:TypeArguments="x:String"><x:String>System</x:String><x:String>Microsoft.VisualBasic</x:String><x:String>UiPath.Core</x:String><x:String>UiPath.Core.Activities</x:String><x:String>UiPath.Database</x:String><x:String>UiPath.Database.Activities</x:String></sco:Collection></TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation><sco:Collection x:TypeArguments="AssemblyReference"><AssemblyReference>System</AssemblyReference><AssemblyReference>System.Activities</AssemblyReference><AssemblyReference>System.Private.CoreLib</AssemblyReference><AssemblyReference>Microsoft.VisualBasic</AssemblyReference><AssemblyReference>UiPath.Database</AssemblyReference><AssemblyReference>UiPath.Database.Activities</AssemblyReference><AssemblyReference>UiPath.System.Activities</AssemblyReference></sco:Collection></TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Erp_CreateVendor">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Db_GetOrCreateVendor" UnSafe="False" WorkflowFileName="DB\Db_GetOrCreateVendor.xaml"><ui:InvokeWorkflowFile.Arguments><InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[in_Connection]</InArgument><InArgument x:TypeArguments="x:String" x:Key="in_Supplier">[in_Supplier]</InArgument><InArgument x:TypeArguments="x:String" x:Key="in_Address">[in_Address]</InArgument><InArgument x:TypeArguments="x:String" x:Key="in_IBAN">[in_IBAN]</InArgument><OutArgument x:TypeArguments="x:Int32" x:Key="out_VendorId">[out_VendorId]</OutArgument></ui:InvokeWorkflowFile.Arguments></ui:InvokeWorkflowFile>
+    <ui:LogMessage DisplayName="Log ERP Create" Level="Info" Message="[&quot;ERP vendor logical record ensured. VendorId=&quot; &amp; out_VendorId.ToString]" />
   </Sequence>
 </Activity>

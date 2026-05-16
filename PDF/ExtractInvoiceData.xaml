@@ -1,7 +1,7 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ExtractInvoiceData" this:ExtractInvoiceData.in_FilePath="D:\01_Schule\Semester 4\Hyperauto\Invoices\Test_Invoice\Invoice_2941405_Luzern_Consulting.pdf" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System.Text.RegularExpressions" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Activity mc:Ignorable="sap sap2010" x:Class="ExtractInvoiceData" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System.Text.RegularExpressions" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="out_Address" Type="OutArgument(x:String)" />
-    <x:Property Name="out_IsInvoiceDataFound" Type="OutArgument(x:String)" />
+    <x:Property Name="out_IsInvoiceDataFound" Type="OutArgument(x:Boolean)" />
     <x:Property Name="out_Supplier" Type="OutArgument(x:String)" />
     <x:Property Name="out_ReferenzeID" Type="OutArgument(x:String)" />
     <x:Property Name="out_Amount" Type="OutArgument(x:String)" />
@@ -252,9 +252,12 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Lege diese Variablen an:&#xA;&#xA;pdfText → String&#xA;ocrText → String&#xA;fullText → String&#xA;ibanMatches → IEnumerable&lt;System.Text.RegularExpressions.Match&gt;&#xA;amountMatches → IEnumerable&lt;System.Text.RegularExpressions.Match&gt;&#xA;referenceMatches → IEnumerable&lt;System.Text.RegularExpressions.Match&gt;&#xA;lines → String[]&#xA;ibanLineIndex → Int32&#xA;cleanIBAN → String&#xA;cleanAmount → String&#xA;cleanReference → String" DisplayName="ExtractInvoiceData" sap:VirtualizedContainerService.HintSize="802,3167.5" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Lege diese Variablen an:&#xA;&#xA;pdfText â†’ String&#xA;ocrText â†’ String&#xA;fullText â†’ String&#xA;ibanMatches â†’ IEnumerable&lt;System.Text.RegularExpressions.Match&gt;&#xA;amountMatches â†’ IEnumerable&lt;System.Text.RegularExpressions.Match&gt;&#xA;referenceMatches â†’ IEnumerable&lt;System.Text.RegularExpressions.Match&gt;&#xA;lines â†’ String[]&#xA;ibanLineIndex â†’ Int32&#xA;cleanIBAN â†’ String&#xA;cleanAmount â†’ String&#xA;cleanReference â†’ String" DisplayName="ExtractInvoiceData" sap:VirtualizedContainerService.HintSize="802,3123" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="normalizedText" />
       <Variable x:TypeArguments="str:Match" Name="supplierAddressMatch" />
@@ -281,15 +284,15 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:ReadPDFText PreserveFormatting="{x:Null}" DisplayName="Read PDF Text" FileName="[in_FilePath]" sap:VirtualizedContainerService.HintSize="452,115.5" sap2010:WorkflowViewState.IdRef="ReadPDFText_1" Range="All" Text="[pdfText]" />
-    <If Condition="[String.IsNullOrWhiteSpace(pdfText)]" sap:VirtualizedContainerService.HintSize="452,844" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[String.IsNullOrWhiteSpace(pdfText)]" sap:VirtualizedContainerService.HintSize="452,804" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,469.5" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,429.5" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:ReadPDFWithOCR DegreeOfParallelism="-1" DisplayName="Read PDF With OCR" FileName="[in_FilePath]" sap:VirtualizedContainerService.HintSize="416,234.5" sap2010:WorkflowViewState.IdRef="ReadPDFWithOCR_1" ImageDpi="150" Range="All" Text="[ocrText]">
+          <ui:ReadPDFWithOCR DegreeOfParallelism="-1" DisplayName="Read PDF With OCR" FileName="[in_FilePath]" sap:VirtualizedContainerService.HintSize="416,194.5" sap2010:WorkflowViewState.IdRef="ReadPDFWithOCR_1" ImageDpi="150" Range="All" Text="[ocrText]">
             <ui:ReadPDFWithOCR.OCREngine>
               <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
                 <ActivityFunc.Argument>
@@ -351,7 +354,7 @@
         <InArgument x:TypeArguments="x:String">[RegularExpressions.Regex.Match(fullText, "CH\d{2}(?:\s?\d{4}){4}\s?\d").Value]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Extract the IBAN pattern from the input text using the provided regular expression." sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_13">
+    <Assign DisplayName="Extract the IBAN pattern from the input text using the provided regular expression." sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_13">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_Amount]</OutArgument>
       </Assign.To>
@@ -359,7 +362,7 @@
         <InArgument x:TypeArguments="x:String">[RegularExpressions.Regex.Match(fullText, "CHF\s?\d+\.\d{2}").Value]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Extract the IBAN pattern from the input text using the provided regular expression." sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_14">
+    <Assign DisplayName="Extract the IBAN pattern from the input text using the provided regular expression." sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_14">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_ReferenzeID]</OutArgument>
       </Assign.To>
@@ -367,7 +370,7 @@
         <InArgument x:TypeArguments="x:String">[RegularExpressions.Regex.Match(fullText,"\d{5}\s\d{5}\s\d{5}\s\d{5}\s\d{5}\s\d{2}").Value]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="supplierAddressMatch" sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_27">
+    <Assign DisplayName="supplierAddressMatch" sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_27">
       <Assign.To>
         <OutArgument x:TypeArguments="str:Match">[supplierAddressMatch]</OutArgument>
       </Assign.To>
@@ -375,7 +378,7 @@
         <InArgument x:TypeArguments="str:Match">[System.Text.RegularExpressions.Regex.Match(fullText, "(?&lt;=Konto / Zahlbar an\s+)(?&lt;Name&gt;.+)\nCH\d{2}[\d\s]+\s+(?&lt;Strasse&gt;.+)\n.+\s+(?&lt;Ort&gt;\d{4}\s.+?)(\n|$)")]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="out_supplier" sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_17">
+    <Assign DisplayName="out_supplier" sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_17">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_Supplier]</OutArgument>
       </Assign.To>
@@ -383,7 +386,7 @@
         <InArgument x:TypeArguments="x:String">[supplierAddressMatch.Groups("Name").Value]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Stret" sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_22">
+    <Assign DisplayName="Stret" sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_22">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[street]</OutArgument>
       </Assign.To>
@@ -391,7 +394,7 @@
         <InArgument x:TypeArguments="x:String">[supplierAddressMatch.Groups("Strasse").Value]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="city" sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_23">
+    <Assign DisplayName="city" sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_23">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[city]</OutArgument>
       </Assign.To>
@@ -399,7 +402,7 @@
         <InArgument x:TypeArguments="x:String">[supplierAddressMatch.Groups("Ort").Value]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Adress" sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_24">
+    <Assign DisplayName="Adress" sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_24">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_Address]</OutArgument>
       </Assign.To>
@@ -407,14 +410,17 @@
         <InArgument x:TypeArguments="x:String">[street + ", " + city]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Assign the boolean value `Not String.IsNullOrWhiteSpace(out_IBAN) AndAlso Not String.IsNullOrWhiteSpace(out_Amount) AndAlso Not String.IsNullOrWhiteSpace(out_Reference) AndAlso Not String.IsNullOrWhiteSpace(out_Supplier)` to the variable `out_IsInvoiceDataFound`." sap:VirtualizedContainerService.HintSize="452,176.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_19">
+    <Assign DisplayName="Assign the boolean value `Not String.IsNullOrWhiteSpace(out_IBAN) AndAlso Not String.IsNullOrWhiteSpace(out_Amount) AndAlso Not String.IsNullOrWhiteSpace(out_Reference) AndAlso Not String.IsNullOrWhiteSpace(out_Supplier)` to the variable `out_IsInvoiceDataFound`." sap:VirtualizedContainerService.HintSize="452,176" sap2010:WorkflowViewState.IdRef="Assign_19">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[out_IsInvoiceDataFound]</OutArgument>
+        <OutArgument x:TypeArguments="x:Boolean">[out_IsInvoiceDataFound]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[(Not String.IsNullOrWhiteSpace(out_IBAN) AndAlso Not String.IsNullOrWhiteSpace(out_Amount) AndAlso Not String.IsNullOrWhiteSpace(out_ReferenzeID) AndAlso Not String.IsNullOrWhiteSpace(out_Supplier)).ToString()]</InArgument>
+        <InArgument x:TypeArguments="x:Boolean" xml:space="preserve">[Not String.IsNullOrWhiteSpace(out_IBAN) AndAlso
+Not String.IsNullOrWhiteSpace(out_Amount) AndAlso
+Not String.IsNullOrWhiteSpace(out_ReferenzeID) AndAlso
+Not String.IsNullOrWhiteSpace(out_Supplier)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:LogMessage DisplayName="Log the combined string containing IBAN, Amount, Reference, Supplier, and IsInvoiceDataFound." sap:VirtualizedContainerService.HintSize="452,167.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&#xA;    &quot;IBAN: {0}{1}Betrag: {2}{1}Referenz: {3}{1}Lieferant: {4}{1}Adresse: {6}{1}OK: {5}&quot;,&#xA;    out_IBAN,&#xA;    Environment.NewLine,&#xA;    out_Amount,&#xA;    out_ReferenzeID,&#xA;    out_Supplier,&#xA;    out_IsInvoiceDataFound,&#xA;    out_Address&#xA;)]" />
+    <ui:LogMessage DisplayName="Log the combined string containing IBAN, Amount, Reference, Supplier, and IsInvoiceDataFound." sap:VirtualizedContainerService.HintSize="452,167" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&#xA;    &quot;IBAN: {0}{1}Betrag: {2}{1}Referenz: {3}{1}Lieferant: {4}{1}Adresse: {6}{1}OK: {5}&quot;,&#xA;    out_IBAN,&#xA;    Environment.NewLine,&#xA;    out_Amount,&#xA;    out_ReferenzeID,&#xA;    out_Supplier,&#xA;    out_IsInvoiceDataFound,&#xA;    out_Address&#xA;)]" />
   </Sequence>
 </Activity>
